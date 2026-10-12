@@ -28,8 +28,8 @@ jobs:
       # 4. Executa os testes usando o Newman
       - name: Run Postman collection
         run: |
-          newman run "API_Concursos.postman_collection.json" \
-            -e "API_Concursos_env.postman_environment.json" \
+          newman run API_Concursos.postman_collection.json \
+            -e API_Concursos_env.postman_environment.json \
             --reporters cli,htmlextra \
             --reporter-htmlextra-export "reports/report.html"
 
