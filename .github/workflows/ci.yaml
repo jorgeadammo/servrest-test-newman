@@ -22,8 +22,8 @@ jobs:
           node-version: '18'
 
       # 3. Instala o Newman globalmente (ou via npx)
-      - name: Install Newman
-        run: npm install -g newman
+      - name: Install Newman and HTMLExtra Reporter
+        run: npm install -g newman newman-reporter-htmlextra
 
       # 4. Executa os testes usando o Newman
       - name: Run Postman collection
