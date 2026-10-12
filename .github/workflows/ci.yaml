@@ -1,0 +1,42 @@
+name: Newman Postman Tests
+
+on:
+  push:
+    branches: [ "main", "master" ]
+  pull_request:
+    branches: [ "main", "master" ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Faz o checkout do código do repositório
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # 2. Configura o ambiente Node.js
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      # 3. Instala o Newman globalmente (ou via npx)
+      - name: Install Newman
+        run: npm install -g newman
+
+      # 4. Executa os testes usando o Newman
+      - name: Run Postman collection
+        run: |
+          newman run "API_Concursos.postman_collection.json" \
+            -e "API_Concursos_env.postman_environment.json" \
+            --reporters cli,htmlextra \
+            --reporter-htmlextra-export "reports/report.html"
+
+      # 5. Salva o relatório HTML como artefato do GitHub
+      - name: Upload Test Report
+        uses: actions/upload-artifact@v4
+        if: always() # Garante que o relatório será enviado mesmo se os testes falharem
+        with:
+          name: postman-html-report
+          path: reports/report.html
