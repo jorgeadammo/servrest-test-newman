@@ -31,7 +31,7 @@ jobs:
           newman run API_REST_Servrest.postman_collection.json \
             -e API_REST_Servrest.postman_environment.json \
             --reporters cli,htmlextra \
-            --reporter-htmlextra-export "reports/report.html"
+            --reporter-htmlextra-export reports/report.html
 
       # 5. Salva o relatório HTML como artefato do GitHub
       - name: Upload Test Report
